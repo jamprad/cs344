@@ -1,29 +1,74 @@
-PImage img;
+PImage pup;
+float px;
+float py;
+int pupWidth;
+int pupHeight;
+boolean overPup = false;
+boolean locked = false;
+float xOffset = 0.0; 
+float yOffset = 0.0; 
 
-void setup() {
-  size(360, 640); //set screen size
-  background(255); //black background
-  
-  //noStroke(); //no line
-  stroke(0); //line colour (black)
-  fill(192); //fill colour
-  rect(20, 20, 40, 40); //draw rectangle
-  
-  fill(255, 0, 0, 128);
-  rect(20 + 60, 20 + 80, 40, 40);
-  
-  fill(0, 0, 255, 128);
-  pushMatrix();
-  translate(60, 80);
-  scale(2.0);
-  rect(20, 20, 40, 40);
-  popMatrix();
+void setup() 
+{
+  size(225, 400);
+  pup = loadImage("so_cute.jpg");
+  pupWidth = pup.width;
+  pupHeight = pup.height;
+  px = 0;
+  py = 0; 
 }
 
-/*
-void draw() {
-  // Displays the image at its actual size at point (0,0)
-  image(img, 0, 0);
-  // Displays the image at point (0, height/2) at half of its size
-  //image(img, 0, height/2, img.width/2, img.height/2);
-}*/
+void draw() 
+{
+  background(0);
+  // Test if the cursor is over the image
+  if (mouseX > px-pupWidth && mouseX < px+pupWidth && 
+      mouseY > py-pupHeight && mouseY < py+pupHeight) {
+    //overBox = true;
+    overPup = true;  
+    if(!locked) { 
+      stroke(255); 
+      //fill(153);
+    } 
+  } else {
+    stroke(153);
+    //fill(153);
+    //overBox = false;
+    overPup = false;
+  }
+  
+  // Draw the box
+  //rect(bx, by, boxSize, boxSize);
+  image(pup, px, py);
+}
+
+void mousePressed() {
+  if(overPup) { 
+    locked = true; 
+    //fill(255, 255, 255);
+  } else {
+    locked = false;
+  }
+  xOffset = mouseX-px; 
+  yOffset = mouseY-py; 
+
+}
+
+void mouseDragged() {
+  if(locked) {
+    float maybePx = mouseX - xOffset;
+    float maybePy = mouseY - yOffset;
+    
+    if (maybePx <= 0 && maybePx >= -(pupWidth - width)){
+      px = maybePx;
+    }
+    if (maybePy <= 0 && maybePy >= -(pupHeight - height)){
+      py = maybePy; 
+    }
+
+  }
+}
+
+void mouseReleased() {
+  locked = false;
+}
