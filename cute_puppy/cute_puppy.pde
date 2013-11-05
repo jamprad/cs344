@@ -13,7 +13,8 @@ float scaler = 1.0;
 void setup() 
 {
   size(225, 400);
-  pup = loadImage("so_cute.jpg");
+  //pup = loadImage("so_cute.jpg");
+  pup = loadImage("mall-map.gif");
   pupWidth = pup.width;
   pupHeight = pup.height;
   px = 0;
@@ -87,10 +88,7 @@ void keyPressed() {
   }
   else if (keyCode == 40) { //down arrow
     print("zoom out\n");
-    float maybeScaler = scaler - 0.1;
-    if (maybeScaler * pupHeight >= height && maybeScaler * pupWidth >= width){ 
-      scaler -= 0.1;
-    }
+    scaler -= 0.1;
   }
 }
 
