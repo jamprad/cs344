@@ -12,7 +12,7 @@ float scaler = 1.0;
 
 void setup() 
 {
-  size(225, 400);
+  size(300, 500);
   //pup = loadImage("so_cute.jpg");
   pup = loadImage("mall-map.gif");
   pupWidth = pup.width;
@@ -83,12 +83,16 @@ void mouseReleased() {
 void keyPressed() {
   
   if (keyCode == 38) { //up arrow
-    print("zoom in\n");
     scaler += 0.1;
+    print("zoom in: " + scaler + "\n");
   }
   else if (keyCode == 40) { //down arrow
-    print("zoom out\n");
-    scaler -= 0.1;
+    float maybeScaler = scaler - 0.1;
+    print("zoom out: " + maybeScaler + "\n");
+    if (maybeScaler < 1.0){
+    } else {
+      scaler = maybeScaler;
+    }
   }
 }
 
